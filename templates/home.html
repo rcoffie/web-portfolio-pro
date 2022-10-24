@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <!-- {{view.profiles}} -->
+      <div class="" id="map" style="height:500px; width: 100%">
+
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  var google_streets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom:22,
+    subdomains: ['mt0', 'mt1','mt2', 'mt3']
+  })
+  var map = L.map('map',{
+    center:[0.36, 36.63543],
+    zoom: 2,
+    layers:[google_streets,]
+  });
+  var geojson = '{{view.profiles|safe}}'
+      var geojson_valid = JSON.parse(geojson);
+      var profiles = L.geoJson(geojson_valid,{
+        pointTolayer:function(feature, latlng){
+          return L.marker(latlng);
+        }
+      });
+      map.addLayer(profiles);
+
+</script>
+{% endblock content %}
