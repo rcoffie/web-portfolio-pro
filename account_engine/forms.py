@@ -1,6 +1,9 @@
 from django import forms
 from .models import Profile
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.core.exceptions import ValidationError
 from django.forms import Form, FloatField
+from django.contrib.auth.models import User
 from django.contrib.gis import forms
 
 import floppyforms.__future__ as forms
@@ -17,3 +20,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('phone_number','home_address','first_name','last_name','location')
+
+class RegistrationForm(UserCreationForm):
+
+
+    class Meta:
+        model = User
+        fields = ("username", "password1", "password2")
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label="Username")

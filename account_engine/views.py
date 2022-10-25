@@ -3,7 +3,17 @@ from account_engine.models import Profile
 from account_engine.forms import ProfileForm
 from django.views.generic import TemplateView
 from django.core import serializers
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    UserCreationForm,
+)
 from django.http import HttpResponse
+from account_engine.forms import RegistrationForm, LoginForm
+from django.views import generic
+from django.contrib.auth import views as auth_views
 # Create your views here.
 
 
@@ -15,7 +25,7 @@ class HomeView(TemplateView):
 
 
 def user_profile(request):
-    
+
     return render (request, 'user_profile.html')
 
 def edit_profile(request, id):
@@ -29,3 +39,20 @@ def edit_profile(request, id):
     context = {'profile':profile,"form":form,}
 
     return render(request, 'edit_profile.html',context)
+
+
+def user_registration(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            Profile.objects.create(user=new_user)
+            return redirect("home")
+    else:
+        form = RegistrationForm()
+    return render(request, "user_registration.html", {"form": form})
+
+
+class LoginView(auth_views.LoginView):
+    form_class = LoginForm
+    template_name = "user_login.html"
