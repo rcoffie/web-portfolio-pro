@@ -4,14 +4,22 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-      <h1>This is the User profile page </h1>
-      {% if request.user.is_authenticated %}
-       <a href="{% url 'edit_profile' request.user.profile.id %}"> {{request.user}} </a>
-       <br>
-       <a href="{% url 'user_profile' %}"> Profile </a>
-      {% else %}
-      <p>unknown user </p>
-      {% endif %}
+      <h1> hi {{ profile.user.username|title  }} </h1>
+      <div class="card mb-3" style="">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="https://thumbs.dreamstime.com/b/user-profile-icon-flat-vector-illustration-design-user-profile-icon-flat-vector-illustration-design-isolated-white-background-158416637.jpg" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">About</h5>
+              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text"><small class="text-muted"> <a class="btn btn-primary" href="{% url 'edit_profile' request.user.profile.id  %}"> Update Profile </a> </small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

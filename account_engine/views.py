@@ -14,6 +14,7 @@ from django.http import HttpResponse
 from account_engine.forms import RegistrationForm, LoginForm
 from django.views import generic
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -23,11 +24,13 @@ class HomeView(TemplateView):
         profiles = Profile.objects.all()
         return serializers.serialize('geojson', profiles)
 
+@login_required(login_url='/login/')
+def user_profile(request, id):
+    profile = Profile.objects.get(id=id)
+    context = {'profile':profile}
+    return render (request, 'user_profile.html', context)
 
-def user_profile(request):
-
-    return render (request, 'user_profile.html')
-
+@login_required(login_url='/login/')
 def edit_profile(request, id):
     profile = Profile.objects.get(id=id)
     form = ProfileForm(instance=profile)
@@ -41,18 +44,38 @@ def edit_profile(request, id):
     return render(request, 'edit_profile.html',context)
 
 
+# def user_registration(request):
+#     if request.method == "POST":
+#         form = RegistrationForm(request.POST)
+#         if form.is_valid():
+#             new_user = form.save()
+#             Profile.objects.create(user=new_user)
+#             return redirect("home")
+#     else:
+#         form = RegistrationForm()
+#     return render(request, "user_registration.html", {"form": form})
+
+
 def user_registration(request):
-    if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            Profile.objects.create(user=new_user)
-            return redirect("home")
+    if request.user.is_authenticated:
+        return redirect("home")
     else:
-        form = RegistrationForm()
-    return render(request, "user_registration.html", {"form": form})
+        if request.method == "POST":
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                new_user = form.save()
+                profile.objects.create(user=new_user)
+                return redirect("home")
+        else:
+            form = RegistrationForm()
+        return render(request, 'user_registration.html',{"form":form})
 
 
 class LoginView(auth_views.LoginView):
     form_class = LoginForm
     template_name = "user_login.html"
+
+@login_required(login_url='/login/')
+def user_logout(request):
+    logout(request)
+    return redirect("home")

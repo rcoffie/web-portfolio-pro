@@ -6,13 +6,14 @@
   <div class="row">
     <div class="col-md-12">
       <!-- {{view.profiles}} -->
-      {% if request.user.is_authenticated %}
+       <!-- debuggin purpose  -->
+      <!-- {% if request.user.is_authenticated %}
        <a href="{% url 'edit_profile' request.user.profile.id %}"> {{request.user}} </a>
        <br>
-       <a href="{% url 'user_profile' %}"> Profile </a>
+       <a href="{% url 'user_profile' request.user.profile.id  %}"> Profile </a>
       {% else %}
       <p>unknown user </p>
-      {% endif %}
+      {% endif %} -->
       <div class="" id="map" style="height:500px; width: 100%">
 
       </div>
