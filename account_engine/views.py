@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
@@ -43,7 +44,9 @@ def edit_profile(request, id):
             form = ProfileForm(request.POST, instance=profile)
             if form.is_valid():
                 form.save()
-                return redirect("home")
+                messages.success(request, 'profile updateed successfully')
+                # this will rediect back to the user's profile page 
+                return redirect(".")
         context = {"profile": profile, "form": form}
         return render(request, "edit_profile.html", context)
     else:
@@ -58,8 +61,8 @@ def user_registration(request):
             form = RegistrationForm(request.POST)
             if form.is_valid():
                 new_user = form.save()
-                profile.objects.create(user=new_user)
-                return redirect("home")
+                Profile.objects.create(user=new_user)
+                return redirect("login")
         else:
             form = RegistrationForm()
         return render(request, "user_registration.html", {"form": form})

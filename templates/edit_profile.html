@@ -3,6 +3,12 @@
 {% block content %}
 <div class="container">
   <div class="row">
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+    {% endfor %}
     <div class="col-md-8">
       <form class="" action="" method="post">
         {% csrf_token %}
