@@ -58,8 +58,8 @@ def user_registration(request):
             form = RegistrationForm(request.POST)
             if form.is_valid():
                 new_user = form.save()
-                profile.objects.create(user=new_user)
-                return redirect("home")
+                Profile.objects.create(user=new_user)
+                return redirect("login")
         else:
             form = RegistrationForm()
         return render(request, "user_registration.html", {"form": form})
