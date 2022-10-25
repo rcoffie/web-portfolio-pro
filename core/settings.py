@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'account_engine',
     'leaflet',
+    'floppyforms'
 ]
 
 MIDDLEWARE = [
