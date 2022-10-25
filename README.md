@@ -46,3 +46,5 @@
 ## for windows users if you are having problems with installing Grdal 
 [Watch this youtube video ](https://www.youtube.com/watch?v=u7KRKYd5aBQ "Google's Homepage")
    
+![WXWorkCapture_1666709378190](https://user-images.githubusercontent.com/34107104/197806837-503e50e8-f8ae-4319-a178-66c4dc8d8f20.png)
+![WXWorkCapture_16667092009477](https://user-images.githubusercontent.com/34107104/197806859-39e7db27-02e4-4413-8cb4-daecdffdd4e4.png)
