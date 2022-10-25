@@ -1,4 +1,15 @@
-{{profile}}
+{% extends 'base.html' %}
 
-
-{{form}}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form class="" action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" class="btn btn-primary" name="" value="Update">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
