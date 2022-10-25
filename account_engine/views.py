@@ -26,22 +26,41 @@ class HomeView(TemplateView):
 
 @login_required(login_url='/login/')
 def user_profile(request, id):
+
     profile = Profile.objects.get(id=id)
-    context = {'profile':profile}
-    return render (request, 'user_profile.html', context)
+    if request.user == profile.user :
+        context = {'profile':profile}
+        return render (request, 'user_profile.html', context)
+    else:
+        return redirect("home")
+
+# @login_required(login_url='/login/')
+# def edit_profile(request, id):
+#     profile = Profile.objects.get(id=id)
+#     form = ProfileForm(instance=profile)
+#     if request.method == "POST":
+#         form = ProfileForm(request.POST, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("home")
+#     context = {'profile':profile,"form":form,}
+#
+#     return render(request, 'edit_profile.html',context)
 
 @login_required(login_url='/login/')
 def edit_profile(request, id):
     profile = Profile.objects.get(id=id)
-    form = ProfileForm(instance=profile)
-    if request.method == "POST":
-        form = ProfileForm(request.POST, instance=profile)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-    context = {'profile':profile,"form":form,}
-
-    return render(request, 'edit_profile.html',context)
+    if request.user == profile.user:
+        form = ProfileForm(instance=profile)
+        if request.method == "POST":
+            form = ProfileForm(request.POST, instance=profile)
+            if form.is_valid():
+                form.save()
+                return redirect("home")
+        context = {'profile':profile, "form":form}
+        return render(request, "edit_profile.html",context)
+    else:
+        return redirect("home")
 
 
 # def user_registration(request):
