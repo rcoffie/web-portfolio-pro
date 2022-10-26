@@ -1,5 +1,8 @@
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
+user = User
 import logging, traceback
 logger = logging.getLogger('django')
 
@@ -10,7 +13,8 @@ def log_user_login(sender, request, user, **kwargs):
 
 @receiver(user_login_failed)
 def log_user_login_failed(sender, credentials, request, **kwargs):
-    logger.warning(f" {user.username} failed to log in through page {request.META.get('HTTP_REFERER')} ")
+    logger.warning(" failed login attempt  ")
+
 
 
 @receiver(user_logged_out)
