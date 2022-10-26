@@ -13,6 +13,7 @@
 - User Profile Page 
 - User Edit Profile Page 
 - Home page with map with marked locations of users 
+- logg activities for tracking user authentication
 
 # <h3> Setup </h3>
 1. Create a python enviroment locally 
