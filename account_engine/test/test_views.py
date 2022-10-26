@@ -36,3 +36,44 @@ class TestUserProfileDetailView(TestCase):
         user_profile = Profile.objects.create(user=self.user, phone_number="234545", home_address="test")
         response = self.client.get(reverse('user_profile', args=[1]))
         self.assertEqual(response.status_code, 302)
+
+
+class TestUserRegistrationView(TestCase):
+    def setUp(self):
+        self.url = reverse("user_registration")
+        self.username = "testuser"
+        self.password = "p12334567"
+
+    def test_user_register_view(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name='user_registration.html')
+
+    def test_register_user(self):
+        response = self.client.post(reverse("user_registration"), data={
+        "username": self.username,
+        "password1": self.password,
+
+
+        })
+        self.assertEqual(response.status_code, 200)
+
+class TestUserLoginView(TestCase):
+    def setUp(self):
+        self.url = reverse("login")
+
+    def test_user_login_view(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+
+
+class TestUserLogoutView(TestCase):
+    def setUp(self):
+        self.url = reverse("user_logout")
+        self.user = User.objects.create(username="test",password="password")
+        self.cleint = self.client.login(user=self.user,password="pass")
+
+    def test_user_logout_view(self):
+        response = self.client.post(reverse)
+        self.assertEqual(response.status_code, 302)
