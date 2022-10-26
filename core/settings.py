@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "floppyforms",
     "crispy_forms",
     "crispy_bootstrap5",
+    'easyaudit',
     # our apps
     "account_engine",
 ]
@@ -71,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
 ]
 
 ROOT_URLCONF = "core.urls"
