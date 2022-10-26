@@ -13,10 +13,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
-if os.name == 'nt':
-    VENV_BASE = os.environ['VIRTUAL_ENV']
-    os.environ['PATH'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo') + ';' + os.environ['PATH']
-    os.environ['PROJ_LIB'] = os.path.join(VENV_BASE, 'Lib\\site-packages\\osgeo\\data\\proj') + ';' + os.environ['PATH']
+if os.name == "nt":
+    VENV_BASE = os.environ["VIRTUAL_ENV"]
+    os.environ["PATH"] = (
+        os.path.join(VENV_BASE, "Lib\\site-packages\\osgeo") + ";" + os.environ["PATH"]
+    )
+    os.environ["PROJ_LIB"] = (
+        os.path.join(VENV_BASE, "Lib\\site-packages\\osgeo\\data\\proj")
+        + ";"
+        + os.environ["PATH"]
+    )
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,18 +48,18 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    'django.contrib.gis',
-    'account_engine',
-
-    'leaflet',
-    'floppyforms',
-    'crispy_forms',
+    "django.contrib.gis",
+    # third party
+    "leaflet",
+    "floppyforms",
+    "crispy_forms",
     "crispy_bootstrap5",
+    # our apps
+    "account_engine",
 ]
 
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 
@@ -72,7 +78,7 @@ ROOT_URLCONF = "core.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,16 +106,15 @@ WSGI_APPLICATION = "core.wsgi.application"
 #
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'geo',
-        'USER': 'postgres',
-        'PASSWORD': 'nana',
-        'HOST': 'localhost',
-        'PORT': '',
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "geo",
+        "USER": "postgres",
+        "PASSWORD": "nana",
+        "HOST": "localhost",
+        "PORT": "",
     },
 }
-
 
 
 # Password validation
@@ -154,4 +159,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # login redirect page
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = "/"
